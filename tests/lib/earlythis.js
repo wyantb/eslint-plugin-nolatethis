@@ -18,6 +18,8 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         args: [1, 'self']
     }, {
         code: 'console.log(this);'
+    }, {
+        code: 'this.doSomething();'
     }
         // TODO as first part of onevar
     ],
@@ -27,7 +29,7 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         errors: [{ message: 'Fill me in.', }]
     }, {
         code: 'var that = this; $el.on("click", function () { var $node = $(this); $node.trigger("ok"); this.run(); });',
-        errors: [{ message: 'Fill me in.', }]
+        errors: [{ message: 'used "this" instead of "that"', }]
     },
         // TODO as later part of onevar
         // TODO using this as part of func call, ala $(this)
