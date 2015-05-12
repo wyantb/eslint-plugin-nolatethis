@@ -1,0 +1,11 @@
+{
+  "name": "eslint-plugin-earlythis",
+  "peerDependencies": {
+    "eslint": ">=0.8.0"
+  },
+  "devDependencies": {
+    "eslint-tester": "^0.6.0",
+    "eslint": "^0.21.0",
+    "mocha": "^2.2.4"
+  }
+}
