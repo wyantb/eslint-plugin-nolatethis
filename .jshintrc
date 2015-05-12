@@ -1,4 +1,6 @@
 {
+    "unused": "vars",
+    "quotmark": "single",
     "globalstrict": true,
     "node": true
 }
