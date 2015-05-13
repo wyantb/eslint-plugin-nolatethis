@@ -26,6 +26,10 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         code: 'this.doSomething();'
     }, {
         code: wrapInSafe('var $node = $(this), foo = 1;')
+    }, {
+        code: wrapInSafe('doSomething(this);')
+    }, {
+        code: wrapInSafe('that.doSomething(this);')
     }
     ],
 
@@ -48,6 +52,9 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
     }, {
         code: wrapInSafe('var a = 1; that.trigger(this.getProject());'),
         errors: [{ message: 'used "this" instead of "that"' }]
+    }, {
+        code: wrapInSafe('doSome(this); doOther(this);'),
+        errors: [{ message: 'used "this" in a inner function of something that declared a safe context' }]
     }
         // TODO using this in a sub-nested anon function
     ]
