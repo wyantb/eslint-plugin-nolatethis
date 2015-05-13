@@ -7,6 +7,10 @@ var ESLintTester = require('eslint-tester');
 // Tests
 //------------------------------------------------------------------------------
 
+function wrapInSafe(code) {
+    return 'var that = this; $el.on("click", function () { ' + code + ' });';
+}
+
 var eslintTester = new ESLintTester(eslint.linter);
 eslintTester.addRuleTest('./lib/rules/no-latethis', {
 
@@ -20,6 +24,8 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         code: 'console.log(this);'
     }, {
         code: 'this.doSomething();'
+    }, {
+        code: wrapInSafe('var $node = $(this), foo = 1;')
     }
     ],
 
@@ -33,9 +39,13 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         code: 'var self = this; $el.on("click", function () { this.trigger("ok"); });',
         args: [1, 'self'],
         errors: [{ message: 'used "this" instead of "self"', }]
+    }, {
+        code: 'var that = this; $el.on("click", function () { var a = 1, $node = $(this); });',
+        errors: [{ message: 'this redeclaration was not the first variable assignment' }]
+    }, {
+        code: wrapInSafe('var a = 1; var $node = $(this);'),
+        errors: [{ message: 'something declared this, but wasnt first variable declaration in function' }]
     }
-        // TODO as later part of onevar
-        // TODO using this as part of func call, ala $(this)
         // TODO using this in a sub-nested anon function
     ]
 });
