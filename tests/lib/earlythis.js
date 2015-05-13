@@ -24,12 +24,16 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
     ],
 
     invalid: [{
-        code: 'var that = this; $el.on("click", function () { that.run(); this.trigger("ok"); });',
+        code: 'var that = this; $el.on("click", function () { this.trigger("ok"); });',
         errors: [{ message: 'used "this" instead of "that"', }]
     }, {
         code: 'var that = this; $el.on("click", function () { var $node = $(this); $node.trigger("ok"); this.run(); });',
         errors: [{ message: 'used "this" instead of "that"', }]
-    },
+    }, {
+        code: 'var self = this; $el.on("click", function () { this.trigger("ok"); });',
+        args: [1, 'self'],
+        errors: [{ message: 'used "this" instead of "self"', }]
+    }
         // TODO as later part of onevar
         // TODO using this as part of func call, ala $(this)
         // TODO using this in a sub-nested anon function
