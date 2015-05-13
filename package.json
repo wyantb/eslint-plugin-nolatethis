@@ -1,5 +1,6 @@
 {
   "name": "eslint-plugin-earlythis",
+  "license": "MIT",
   "peerDependencies": {
     "eslint": ">=0.8.0"
   },
