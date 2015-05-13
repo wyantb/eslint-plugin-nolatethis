@@ -11,7 +11,7 @@ var eslintTester = new ESLintTester(eslint.linter);
 eslintTester.addRuleTest('./lib/rules/no-latethis', {
 
     valid: [{
-        code: 'var self = this;',
+        code: 'var self = this, foo = "bar";',
         args: [1, 'self'],
     }, {
         code: 'var self = this; $el.on("click", function () { var $node = $(this); $node.trigger("ok"); });',
@@ -21,12 +21,11 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
     }, {
         code: 'this.doSomething();'
     }
-        // TODO as first part of onevar
     ],
 
     invalid: [{
         code: 'var that = this; $el.on("click", function () { that.run(); this.trigger("ok"); });',
-        errors: [{ message: 'Fill me in.', }]
+        errors: [{ message: 'used "this" instead of "that"', }]
     }, {
         code: 'var that = this; $el.on("click", function () { var $node = $(this); $node.trigger("ok"); this.run(); });',
         errors: [{ message: 'used "this" instead of "that"', }]
