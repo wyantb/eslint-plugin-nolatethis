@@ -15,24 +15,22 @@ var eslintTester = new ESLintTester(eslint.linter);
 eslintTester.addRuleTest('./lib/rules/no-latethis', {
 
     valid: [{
-        code: 'var self = this, foo = "bar";',
-        args: [1, 'self'],
-    }, {
-        code: 'var self = this; $el.on("click", function () { var $node = $(this); $node.trigger("ok"); });',
-        args: [1, 'self']
-    }, {
-        code: 'console.log(this);'
-    }, {
-        code: 'this.doSomething();'
-    }, {
-        code: wrapInSafe('var $node = $(this), foo = 1;')
-    }, {
-        code: wrapInSafe('doSomething(this);')
-    }, {
-        code: wrapInSafe('that.doSomething(this);')
-    }, {
-        code: wrapInSafe('_.chain(this).filter().each()')
-    }],
+            code: 'var self = this, foo = "bar";',
+            args: [1, 'self'],
+        }, {
+            code: 'var self = this; $el.on("click", function () { var $node = $(this); $node.trigger("ok"); });',
+            args: [1, 'self']
+        },
+        'console.log(this);',
+        'this.doSomething();',
+        wrapInSafe('var $node = $(this), foo = 1;'),
+        wrapInSafe('doSomething(this);'),
+        wrapInSafe('that.doSomething(this);'),
+        wrapInSafe('_.chain(this).filter().each()'),
+        wrapInSafe('this.chain().run()'),
+        wrapInSafe('return this.chain().run()'),
+        wrapInSafe('return _.chain(this).blah()'),
+    ],
 
     invalid: [{
         code: 'var that = this; $el.on("click", function () { this.trigger("ok"); });',
@@ -65,6 +63,9 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
     }, {
         code: wrapInSafe('_.chain(self.projects()).filter(this.foo).each()'),
         errors: [{ message: '"this" should not be late in a chain call' }]
+    }, {
+        code: wrapInSafe('var $node = $(this); return _.chain(this).foo($node);'),
+        errors: [{ message: '"this" should not be used in later expressions in anon functions' }]
     }
         // TODO using this in a sub-nested anon function
     ]
