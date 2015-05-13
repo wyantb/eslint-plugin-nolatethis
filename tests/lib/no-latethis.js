@@ -45,6 +45,9 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
     }, {
         code: wrapInSafe('var a = 1; var $node = $(this);'),
         errors: [{ message: 'something declared this, but wasnt first variable declaration in function' }]
+    }, {
+        code: wrapInSafe('var a = 1; that.trigger(this.getProject());'),
+        errors: [{ message: 'used "this" instead of "that"' }]
     }
         // TODO using this in a sub-nested anon function
     ]
