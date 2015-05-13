@@ -30,19 +30,20 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         code: wrapInSafe('doSomething(this);')
     }, {
         code: wrapInSafe('that.doSomething(this);')
-    }
-    ],
+    }, {
+        code: wrapInSafe('_.chain(this).filter().each()')
+    }],
 
     invalid: [{
         code: 'var that = this; $el.on("click", function () { this.trigger("ok"); });',
-        errors: [{ message: 'used "this" instead of "that"', }]
+        errors: [{ message: '"this" should declare a local alias when within safe context', }]
     }, {
         code: 'var that = this; $el.on("click", function () { var $node = $(this); $node.trigger("ok"); this.run(); });',
-        errors: [{ message: 'used "this" instead of "that"', }]
+        errors: [{ message: '"this" should declare a local alias when within safe context', }]
     }, {
         code: 'var self = this; $el.on("click", function () { this.trigger("ok"); });',
         args: [1, 'self'],
-        errors: [{ message: 'used "this" instead of "self"', }]
+        errors: [{ message: '"this" should declare a local alias when within safe context', }]
     }, {
         code: 'var that = this; $el.on("click", function () { var a = 1, $node = $(this); });',
         errors: [{ message: 'this redeclaration was not the first variable assignment' }]
@@ -51,10 +52,19 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         errors: [{ message: 'something declared this, but wasnt first variable declaration in function' }]
     }, {
         code: wrapInSafe('var a = 1; that.trigger(this.getProject());'),
-        errors: [{ message: 'used "this" instead of "that"' }]
+        errors: [{ message: '"this" should not be used in later expressions in anon functions' }]
     }, {
         code: wrapInSafe('doSome(this); doOther(this);'),
-        errors: [{ message: 'used "this" in a inner function of something that declared a safe context' }]
+        errors: [{ message: '"this" should not be used in later expressions in anon functions' }]
+    }, {
+        code: wrapInSafe('foo().bar(this);'),
+        errors: [{ message: '"this" should not be late in a chain call' }]
+    }, {
+        code: wrapInSafe('foo().bar(this).run();'),
+        errors: [{ message: '"this" should not be late in a chain call' }]
+    }, {
+        code: wrapInSafe('_.chain(self.projects()).filter(this.foo).each()'),
+        errors: [{ message: '"this" should not be late in a chain call' }]
     }
         // TODO using this in a sub-nested anon function
     ]
