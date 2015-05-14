@@ -28,21 +28,18 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         wrapInSafe('that.doSomething(this);'),
         wrapInSafe('_.chain(this).filter().each();'),
         wrapInSafe('this.chain().run();'),
+        wrapInSafe('this.trigger("ok");'),
         wrapInSafe('return this.chain().run();'),
         wrapInSafe('return _.chain(this).blah();'),
         'var $n = $(this); function a () { _.chain().run(this).other(); }'
     ],
 
     invalid: [{
-        code: 'var that = this; $el.on("click", function () { this.trigger("ok"); });',
-        errors: [{ message: '"this" should declare a local alias when within safe context', }]
-    }, {
         code: 'var that = this; $el.on("click", function () { var $node = $(this); $node.trigger("ok"); this.run(); });',
-        errors: [{ message: '"this" should declare a local alias when within safe context', }]
+        errors: [{ message: '"this" should not be used as callee in non-first expression within a function', }]
     }, {
-        code: 'var self = this; $el.on("click", function () { this.trigger("ok"); });',
-        args: [1, 'self'],
-        errors: [{ message: '"this" should declare a local alias when within safe context', }]
+        code: wrapInSafe('var a = 1; return this.chain().run();'),
+        errors: [{ message: '"this" should not be used as callee in non-first expression within a function', }]
     }, {
         code: 'var that = this; $el.on("click", function () { var a = 1, $node = $(this); });',
         errors: [{ message: 'this redeclaration was not the first variable assignment' }]
