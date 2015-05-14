@@ -48,6 +48,9 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         errors: [{ message: 'something declared this, but wasnt first variable declaration in function' }]
     }, {
         code: wrapInSafe('var a = 1; that.trigger(this.getProject());'),
+        errors: [{ message: '"this" should not be used as callee in non-first expression within a function' }]
+    }, {
+        code: wrapInSafe('var a = 1; that.trigger(that.getProject(this));'),
         errors: [{ message: '"this" should not be used in later expressions in anon functions' }]
     }, {
         code: wrapInSafe('doSome(this); doOther(this);'),
