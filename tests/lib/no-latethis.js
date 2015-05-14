@@ -26,10 +26,11 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         wrapInSafe('var $node = $(this), foo = 1;'),
         wrapInSafe('doSomething(this);'),
         wrapInSafe('that.doSomething(this);'),
-        wrapInSafe('_.chain(this).filter().each()'),
-        wrapInSafe('this.chain().run()'),
-        wrapInSafe('return this.chain().run()'),
-        wrapInSafe('return _.chain(this).blah()'),
+        wrapInSafe('_.chain(this).filter().each();'),
+        wrapInSafe('this.chain().run();'),
+        wrapInSafe('return this.chain().run();'),
+        wrapInSafe('return _.chain(this).blah();'),
+        'var $n = $(this); function a () { _.chain().run(this).other(); }'
     ],
 
     invalid: [{
