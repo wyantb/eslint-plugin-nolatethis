@@ -33,7 +33,8 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
         wrapInSafe('return _.chain(this).blah();'),
         'var $n = $(this); function a () { _.chain().run(this).other(); }',
         wrapInSafe('switch(a){case "2":foo();}'),
-        'function a() {var that = this; this.run()}'
+        'function a() {var that = this; this.run()}',
+        'function a() {var that = this; if(a) { if (b) {var b = 2;this.run(); }}}'
     ],
 
     invalid: [{
