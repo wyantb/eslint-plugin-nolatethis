@@ -2,12 +2,14 @@
   "name": "eslint-plugin-earlythis",
   "license": "MIT",
   "peerDependencies": {
-    "eslint": ">=0.8.0"
+    "eslint": ">=0.21.0"
   },
   "devDependencies": {
     "eslint-tester": "^0.6.0",
     "eslint": "^0.21.0",
-    "mocha": "^2.2.4",
+    "mocha": "^2.2.4"
+  },
+  "dependencies": {
     "lodash": "^3.8.0"
   }
 }
