@@ -1,6 +1,15 @@
 {
   "name": "eslint-plugin-earlythis",
   "license": "MIT",
+  "version": "0.1.0",
+  "author": "Brian Wyant <wyantb@gmail.com>",
+  "files": ["lib"],
+  "url": "https://github.com/wyantb/eslint-plugin-nolatethis",
+  "bugs": "https://github.com/wyantb/eslint-plugin-nolatethis/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wyantb/eslint-plugin-nolatethis"
+  },
   "peerDependencies": {
     "eslint": ">=0.21.0"
   },
