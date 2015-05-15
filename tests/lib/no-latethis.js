@@ -70,6 +70,12 @@ eslintTester.addRuleTest('./lib/rules/no-latethis', {
     }, {
         code: wrapInSafe('var $node = $(this); return _.chain(this).foo($node);'),
         errors: [{ message: '"this" should not be used in later expressions in anon functions' }]
+    }, {
+        code: wrapInSafe('var that = this, $el = this;'),
+        errors: [{ message: 'this redeclaration was not the first variable assignment' }]
+    }, {
+        code: wrapInSafe('if (this.pie()) {}'),
+        errors: [{ message: '"this" should not be used as callee in non-first expression within a function' }]
     }
         // TODO using this in a sub-nested anon function
     ]
