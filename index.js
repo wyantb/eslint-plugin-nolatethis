@@ -4,6 +4,6 @@ module.exports = {
       'no-latethis': require('./lib/rules/no-latethis'),
     },
     rulesConfig: {
-      'no-latethis': 2,
+      'no-latethis': [2],
     }
 };
