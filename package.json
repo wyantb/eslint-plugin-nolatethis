@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-no-latethis",
   "license": "MIT",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Brian Wyant <wyantb@gmail.com>",
   "files": [
     "index.js",
