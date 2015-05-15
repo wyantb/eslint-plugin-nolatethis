@@ -3,7 +3,10 @@
   "license": "MIT",
   "version": "0.1.0",
   "author": "Brian Wyant <wyantb@gmail.com>",
-  "files": ["lib"],
+  "files": [
+    "index.js",
+    "lib"
+  ],
   "url": "https://github.com/wyantb/eslint-plugin-nolatethis",
   "bugs": "https://github.com/wyantb/eslint-plugin-nolatethis/issues",
   "repository": {
@@ -20,5 +23,6 @@
   },
   "dependencies": {
     "lodash": "^3.8.0"
-  }
+  },
+  "keywords": ["eslint", "eslintplugin", "this"]
 }
